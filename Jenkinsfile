@@ -16,12 +16,12 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    mkdir /home/$USERNAME \
+                    mkdir ${HOME}/$USERNAME \
                     && groupadd -g $GROUP_ID $USERNAME\
-                    && useradd -r -u $USER_ID -g $USERNAME -d /home/$USERNAME $USERNAME\
-                    && chown $USERNAME:$USERNAME /home/$USERNAME\
+                    && useradd -r -u $USER_ID -g $USERNAME -d ${HOME}/$USERNAME $USERNAME\
+                    && chown $USERNAME:$USERNAME ${HOME}/$USERNAME\
                     && USER $USERNAME\
-                    && WORKDIR /home/$USERNAME\
+                    && WORKDIR ${HOME}/$USERNAME\
                     && apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
                     && apt-get install -y apt-transport-https\
                     && apt-get install -y build-essential git wget cmake libboost-all-dev
