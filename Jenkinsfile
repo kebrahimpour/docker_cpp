@@ -11,7 +11,7 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    RUN apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
+                    apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
                     && apt-get install -y apt-transport-https\
                     && apt-get install -y build-essential git wget cmake\
                     && cd ${HOME} \
