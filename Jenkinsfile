@@ -7,7 +7,7 @@ pipeline {
     agent {
         docker{
             image 'ubuntu:20.04'
-            args '-u root --privileged -v ${HOME}:${HOME}  -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--privileged -v ${HOME}:${HOME}  -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock'
         }
      }
 
@@ -16,9 +16,7 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    mkdir -p ${JENKINS_HOME}/$JENKINS_USER_NAME \
-                    && chown $JENKINS_USER_NAME:$JENKINS_USER_NAME ${JENKINS_HOME}/$JENKINS_USER_NAME\
-                    && apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
+                    apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
                     && apt-get install -y apt-transport-https\
                     && apt-get install -y build-essential git wget cmake libboost-all-dev
                     // && cd ${HOME} \
