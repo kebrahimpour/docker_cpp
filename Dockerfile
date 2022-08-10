@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:xenial
 
 LABEL Description="Cpp Build Environment"
 
