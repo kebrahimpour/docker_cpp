@@ -17,7 +17,6 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p ${JENKINS_HOME}/$JENKINS_USER_NAME \
-                    && useradd -r -u $JENKINS_USER_ID -g $JENKINS_USER_NAME -d ${JENKINS_HOME}/$JENKINS_USER_NAME $JENKINS_USER_NAME\
                     && chown $JENKINS_USER_NAME:$JENKINS_USER_NAME ${JENKINS_HOME}/$JENKINS_USER_NAME\
                     && USER $USERNAME\
                     && WORKDIR ${JENKINS_HOME}/$USERNAME\
