@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker{
             image 'ubuntu:20.04'
-            args '-v ${HOME}:${HOME}'
+            args '-u root:sudo -v ${HOME}:${HOME}'
         }
      }
 
