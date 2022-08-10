@@ -11,9 +11,9 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    apt-get update && apt-get install -y apt-transport-https\
+                    RUN apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
+                    && apt-get install -y apt-transport-https\
                     && apt-get install -y build-essential git wget cmake\
-                    && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
                     && cd ${HOME} \
                     && wget --no-check-certificate --quiet \
                        https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz \
