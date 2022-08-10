@@ -16,12 +16,12 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    mkdir -p ${HOME}/$USERNAME \
-                    && groupadd -g $GROUP_ID $USERNAME\
-                    && useradd -r -u $USER_ID -g $USERNAME -d ${HOME}/$USERNAME $USERNAME\
-                    && chown $USERNAME:$USERNAME ${HOME}/$USERNAME\
+                    mkdir -p ${JENKINS_HOME}/$JENKINS_USER_NAME \
+                    && groupadd -g $JENKINS_GROUP_ID $JENKINS_USER_NAME\
+                    && useradd -r -u $USER_ID -g $USERNAME -d ${JENKINS_HOME}/$JENKINS_USER_NAME $JENKINS_USER_NAME\
+                    && chown $JENKINS_USER_NAME:$JENKINS_USER_NAME ${JENKINS_HOME}/$JENKINS_USER_NAME\
                     && USER $USERNAME\
-                    && WORKDIR ${HOME}/$USERNAME\
+                    && WORKDIR ${JENKINS_HOME}/$USERNAME\
                     && apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
                     && apt-get install -y apt-transport-https\
                     && apt-get install -y build-essential git wget cmake libboost-all-dev
