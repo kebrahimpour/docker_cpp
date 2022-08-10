@@ -1,9 +1,8 @@
 FROM ubuntu:22.04
 
-
 LABEL Description="Cpp Build Environment"
 
-ENV HOME /root
+USER root
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends install \
     apt-transport-https \ 
