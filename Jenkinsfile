@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker{
             image 'ubuntu:20.04'
-            args '-v ${HOME}:${HOME} -v /etc/localtime:/etc/localtime:ro -v $(pwd):/tz'
+            args '-v ${HOME}:${HOME}'
         }
      }
 
@@ -12,7 +12,9 @@ pipeline {
             steps {
                 sh '''
                     apt-get update && apt-get install -y apt-transport-https\
-                    && apt-get install -y build-essential git wget cmake\
+                    && apt-get install -y build-essential git wget cmake tzdata\
+                    && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime  \
+                    && dpkg-reconfigure -f noninteractive tzdata \
                     && cd ${HOME}      \
                     && wget --no-check-certificate --quiet \
                        https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz \
