@@ -16,7 +16,7 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    mkdir ${HOME}/$USERNAME \
+                    mkdir -p ${HOME}/$USERNAME \
                     && groupadd -g $GROUP_ID $USERNAME\
                     && useradd -r -u $USER_ID -g $USERNAME -d ${HOME}/$USERNAME $USERNAME\
                     && chown $USERNAME:$USERNAME ${HOME}/$USERNAME\
