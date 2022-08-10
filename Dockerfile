@@ -5,9 +5,11 @@ LABEL Description="Cpp Build Environment"
 ENV HOME /root
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends install \
+    apt-transport-https \ 
     build-essential \
     cmake \
     wget
+
 
 RUN cd ${HOME}     && \
     wget --no-check-certificate --quiet \
