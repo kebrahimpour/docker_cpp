@@ -1,8 +1,13 @@
 pipeline {
+     environment {
+            JENKINS_USER_NAME = "${sh(script:'id -un', returnStdout: true).trim()}"
+            JENKINS_USER_ID = "${sh(script:'id -u', returnStdout: true).trim()}"
+            JENKINS_GROUP_ID = "${sh(script:'id -g', returnStdout: true).trim()}"
+    }
     agent {
         docker{
             image 'ubuntu:20.04'
-            args '-u root:sudo -v ${HOME}:${HOME}'
+            args '-v ${HOME}:${HOME}  -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --build-arg GID=$JENKINS_GROUP_ID  --build-arg UID=$JENKINS_USER_ID  --build-arg UNAME=$JENKINS_USER_NAME'
         }
      }
 
@@ -11,7 +16,13 @@ pipeline {
         stage('prepare') {
             steps {
                 sh '''
-                    apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
+                    mkdir /home/$USERNAME \
+                    && groupadd -g $GROUP_ID $USERNAME\
+                    && useradd -r -u $USER_ID -g $USERNAME -d /home/$USERNAME $USERNAME\
+                    && chown $USERNAME:$USERNAME /home/$USERNAME\
+                    && USER $USERNAME\
+                    && WORKDIR /home/$USERNAME\
+                    && apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y tzdata\
                     && apt-get install -y apt-transport-https\
                     && apt-get install -y build-essential git wget cmake libboost-all-dev
                     // && cd ${HOME} \
@@ -33,7 +44,7 @@ pipeline {
                 cd ${HOME}
                 mkdir -p build
                 cd build
-                cmake ..                
+                cmake ..
                 '''
             }
         }
