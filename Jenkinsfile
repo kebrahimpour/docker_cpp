@@ -27,9 +27,12 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Build') {
             steps {
-                sh 'which g++'
+                sh '''
+                cd ${HOME}
+                ls -R which g++
+                '''
             }
         }
     }
