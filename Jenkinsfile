@@ -15,10 +15,10 @@ pipeline {
                     && apt-get install -y build-essential git wget cmake tzdata\
                     && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime  \
                     && dpkg-reconfigure -f noninteractive tzdata \
-                    && cd ${HOME}      \
+                    && cd ${HOME} \
                     && wget --no-check-certificate --quiet \
                        https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz \
-                    && tar xzf ./boost_1_77_0.tar.gz && \
+                    && tar xzf ./boost_1_77_0.tar.gz  \
                     && cd ./boost_1_77_0 \
                     && ./bootstrap.sh \
                     &&./b2 install \
