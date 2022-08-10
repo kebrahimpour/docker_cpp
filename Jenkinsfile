@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker{
-            image: 'ubuntu:20.04'
+            image 'ubuntu:20.04'
             args '-v ${HOME}:${HOME} -v /etc/localtime:/etc/localtime:ro -v $(pwd):/tz'
         }
      }
