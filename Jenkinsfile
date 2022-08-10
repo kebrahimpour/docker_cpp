@@ -7,7 +7,7 @@ pipeline {
     agent {
         docker{
             image 'ubuntu:20.04'
-            args '-v ${HOME}:${HOME}  -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --build-arg GID=$JENKINS_GROUP_ID  --build-arg UID=$JENKINS_USER_ID  --build-arg UNAME=$JENKINS_USER_NAME'
+            args '-v ${HOME}:${HOME}  -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock'
         }
      }
 
