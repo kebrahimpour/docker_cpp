@@ -7,7 +7,7 @@ pipeline {
     agent {
         docker{
             image 'ubuntu:20.04'
-            args '--privileged -v ${HOME}:${HOME}  -v jenkins_data:/var/jenkins_data -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--privileged -v ${HOME}:${HOME}  -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock'
         }
      }
 
